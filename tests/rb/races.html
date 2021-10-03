@@ -1,0 +1,584 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><title>
+	Results Lookup
+</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="description" content="runbritain Rankings: Find out where your times put you in the UK and enjoy features like our runbritain Handicap and performance graphs." /><meta name="keywords" content="running, road running, rankings, runbritain, handicap, british, athlete, 10K, half marathon, marathon" /><link rel="stylesheet" href="/stylesheets/rb2.css" type="text/css" /><link rel="stylesheet" href="/stylesheets/rd.css" type="text/css" /><link rel="stylesheet" href="/stylesheets/rewards.css" type="text/css" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+
+    <script src="/js/jquery-ui.min.js" type="text/javascript"></script>
+
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/excanvas.min.js"></script><![endif]-->
+
+    <script language="javascript" type="text/javascript" src="/js/jquery.flot2.js"></script>
+
+    <script language="javascript" type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
+
+    <script type="text/javascript" src="/js/jquery.rd.js"></script>
+
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+
+    <script src="https://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js"
+        type="text/javascript"></script>
+
+    <script type="text/javascript">
+        google.load('feeds', '1');
+
+        function OnLoad() {
+            var feeds = [
+    {
+        title: 'News',
+        url: 'https://www.runbritain.com/Rss.aspx?itemtype=news'
+    }
+
+  ];
+
+            var options = {
+                numResults: 5,
+                displayTime: 8000,
+                stacked: false,
+                horizontal: false,
+                title: "Latest on runbritain"
+            };
+
+            new GFdynamicFeedControl(feeds, 'feed', options);
+        }
+
+        google.setOnLoadCallback(OnLoad);    
+    
+    </script>
+
+    <script type='text/javascript'>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+        (function() {
+            var gads = document.createElement('script');
+            gads.async = true;
+            gads.type = 'text/javascript';
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') +
+'//www.googletagservices.com/tag/js/gpt.js';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        })();
+    </script>
+
+    <script type='text/javascript'>
+        /*googletag.cmd.push(function() {
+        googletag.defineSlot('/4320101/RunBritainRankings-Banner', [468, 60], 'div-gpt-ad-1348653716773-0').addService(googletag.pubads());
+        googletag.defineSlot('/4320101/RunBritainRankings-Button', [120, 90], 'div-gpt-ad-1348653716773-1').addService(googletag.pubads());
+        googletag.defineSlot('/4320101/RunBritainRankings-Leaderboard', [728, 90], 'div-gpt-ad-1348653716773-2').addService(googletag.pubads());
+        googletag.defineSlot('/4320101/RunBritainRankings-MPU', [300, 250], 'div-gpt-ad-1348653716773-3').addService(googletag.pubads());
+        googletag.defineSlot('/4320101/RunBritainRankings-Sky', [120, 600], 'div-gpt-ad-1348653716773-4').addService(googletag.pubads());
+        googletag.defineSlot('/4320101/RunBritainRankings-WideSky', [160, 600], 'div-gpt-ad-1348653716773-5').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+        });*/
+        googletag.cmd.push(function() {
+            googletag.defineSlot('/4320101/RunBritain-Banner', [468, 60], 'div-gpt-ad-1347609131422-0').addService(googletag.pubads());
+            googletag.defineSlot('/4320101/RunBritain-Button', [120, 90], 'div-gpt-ad-1347609131422-1').addService(googletag.pubads());
+            googletag.defineSlot('/4320101/RunBritain-Leaderboard', [728, 90], 'div-gpt-ad-1347609131422-2').addService(googletag.pubads());
+            googletag.defineSlot('/4320101/RunBritain-Sky', [120, 600], 'div-gpt-ad-1347609131422-3').addService(googletag.pubads());
+            googletag.defineSlot('/4320101/RunBritain-WideSky', [160, 600], 'div-gpt-ad-1347609131422-4').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+
+    
+    
+</head>
+<body>
+    <form method="post" action="./resultslookup.aspx?datefrom=21-Oct-2019&amp;dateto=4-Nov-2019&amp;terraintypecodes=P" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTMzNDk5MTYxMg9kFgJmD2QWBAIDD2QWAgIBDxYCHgVhbGlnbgUGY2VudGVyFgICAQ8WAh4Fd2lkdGgFBTk3NXB4FgJmD2QWAmYPZBYEAgEPZBYGAg0PDxYCHgdWaXNpYmxlaBYCHgdvbmNsaWNrBThyZXR1cm4gZm5BcmVZb3VTdXJlKCdBcmUgeW91IHN1cmUgeW91IHdhbnQgdG8gbG9nb3V0ID8nKWQCDw8PFgIeBFRleHQFXkZvcmdvdHRlbiB5b3VyIGxvZ2luIGRldGFpbHM/IDxhIGhyZWY9Ii91c2VyL3VzZXJwYXNzd29yZHJlc2V0cmVxdWVzdC5hc3B4Ij5SZXNldCBwYXNzd29yZDwvYT5kZAIRDxYCHwQFE0NsYWltIHlvdXIgSGFuZGljYXBkAgMPZBYEAhMPEGQPFgMCBwIIAgkWAxBkZGgQZGRoEGRkaBYBAgFkAhkPFgIfBAWwATxhIGNsYXNzPSJSZXN1bHRzTG9va3VwRGF0ZUxpbmtOb3JtYWwiIG9uY2xpY2s9ImZuU2V0RGF0ZXMoJzIyIE9jdCAyMDE5JywgJzUgTm92IDIwMTknLCAnMjAxOScpOyIgb25tb3VzZW92ZXI9ImZuT25Nb3VzZU92ZXIodGhpcyk7IiBvbm1vdXNlb3V0PSJmbk9uTW91c2VPdXQodGhpcyk7Ij5SZWNlbnQ8L2E+ZAIFD2QWAmYPFgIfBAWWAzxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4NdmFyIGdhSnNIb3N0ID0gKCgiaHR0cHM6IiA9PSBkb2N1bWVudC5sb2NhdGlvbi5wcm90b2NvbCkgPyAiaHR0cHM6Ly9zc2wuIiA6ICJodHRwOi8vd3d3LiIpOw1kb2N1bWVudC53cml0ZSh1bmVzY2FwZSgiJTNDc2NyaXB0IHNyYz0nIiArIGdhSnNIb3N0ICsgImdvb2dsZS1hbmFseXRpY3MuY29tL2dhLmpzJyB0eXBlPSd0ZXh0L2phdmFzY3JpcHQnJTNFJTNDL3NjcmlwdCUzRSIpKTsNPC9zY3JpcHQ+DTxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4NdHJ5IHsNdmFyIHBhZ2VUcmFja2VyID0gX2dhdC5fZ2V0VHJhY2tlcigiVUEtODIwNzkwMS03Iik7DXBhZ2VUcmFja2VyLl90cmFja1BhZ2V2aWV3KCk7DX0gY2F0Y2goZXJyKSB7fTwvc2NyaXB0Pg1kGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBRpjdGwwMCRiYW5uZXIkY2hrUmVtZW1iZXJNZVrwkj7coS/lNepM2g5605rELF6ifmZn9Pau8J2hAf1+" />
+
+<script language="javascript" type="text/javascript">
+function fnSetDates(myDateFrom, myDateTo, myYear) {
+    document.getElementById("cphBody_txtDateFrom").value = myDateFrom;
+    document.getElementById("cphBody_txtDateTo").value = myDateTo;
+    document.getElementById("cphBody_ddlYearOfPerf").value = myYear;
+    return (true);
+}
+</script>
+<script language="javascript" type="text/javascript">
+function fnResetDatesToRecent() {
+
+    fnSetDates(document.getElementById("cphBody_hidRecentDateFrom").value, document.getElementById("cphBody_hidRecentDateTo").value, document.getElementById("cphBody_hidRecentYear").value);
+    return (true);
+}
+</script>
+
+<script language="javascript" type="text/javascript">
+
+function fnAreYouSure(strMessage) { 
+    if (confirm(strMessage)) {
+        return(true);
+    } 
+    else {
+        return(false);
+    } 
+}
+
+</script>
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="CA0AE4AF" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="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" />
+    <div class="page">
+        <div id="wrapper">
+            <!--<div id="divMain" align="center">
+        <div id="wrapper" align="left">
+            <table id="tblMain" width="975px" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>-->
+            
+<div id="header">
+    <div class="header-m">
+        <strong class="logo"><a href="http://www.runbritain.com">runbritain - we are road running</a></strong>
+        <div class="top-holder">
+            <div class="top-box">
+                <div class="login">
+                    <div id="login-inputs" style="float: left; margin-right: 20px; width: 306px">
+                        <div id="login-input-email" style="margin-bottom: 10px; overflow: hidden">
+                            <span style="display: block; float: left; width: 80px">Email:</span>
+                            <input name="ctl00$banner$txtEmail" type="text" maxlength="50" id="banner_txtEmail" style="width: 220px; float: left;
+                                margin: 0" /></div>
+                        <div id="login-input-pass" style="overflow: hidden">
+                            <span style="display: block; float: left; width: 80px">Password:</span>
+                            <input name="ctl00$banner$txtPassword" type="password" maxlength="20" id="banner_txtPassword" style="width: 220px;
+                                float: left; margin: 0" /></div>
+                        <span id="banner_lblErrorMessage"><font color="Red"></font></span>
+                    </div>
+                    <div id="login-btn" style="float: left;">
+                        Remember Me:<input id="banner_chkRememberMe" type="checkbox" name="ctl00$banner$chkRememberMe" />
+                        <input type="submit" name="ctl00$banner$btnLogin" value="Login" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$banner$btnLogin&quot;, &quot;&quot;, true, &quot;Login&quot;, &quot;&quot;, false, false))" id="banner_btnLogin" class="more" style="margin-left: 25px; -moz-border-radius: 5px; border-radius: 5px" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="oldlogin" style="width: 428px">
+                        <span id="banner_lblUserOption">Forgotten your login details? <a href="/user/userpasswordresetrequest.aspx">Reset password</a></span>
+                    </div>
+                    <div class="socials">
+                        <ul>
+                            <li><a class="facebook" target="_blank" href="http://www.facebook.com/runbritain">Facebook</a></li>
+                            <li><a class="twitter" target="_blank" href="http://twitter.com/runbritain">Twitter</a></li>
+                            <li><a class="youtube" target="_blank" href="http://www.youtube.com/user/runbritainonline">
+                                YouTube</a></li>
+                        </ul>
+                    </div>
+                    <!-- End socials -->
+                </div>
+                <!-- End row -->
+            </div>
+            <!-- End top-box -->
+        </div>
+        <!-- End top-holder -->
+    </div>
+    <!-- End header-m -->
+    <div class="header-b">
+    </div>
+</div>
+<!-- End header -->
+<div id="main">
+
+    <script type="text/javascript">
+        $(function() {
+            if (document.location.href.indexOf('claimhandicap') > -1) {
+                $('li#navclaim').addClass("active");
+            }
+            if (document.location.href.indexOf('runners') > -1) {
+                $('li#navrunners').addClass("active");
+            }
+            if (document.location.href.indexOf('results') > -1) {
+                $('li#navresults').addClass("active");
+            }
+            if ((document.location.href.indexOf('/rankings') > -1) && (document.location.href.indexOf('ladder') == -1)) {
+                $('li#navrankings').addClass("active");
+            }
+            if (document.location.href.indexOf('reward') > -1) {
+                $('li#navrewards').addClass("active");
+            }
+            if ((document.location.href.indexOf('/rankings') > -1) && (document.location.href.indexOf('ladder') > -1)) {
+                $('li#navladder').addClass("active");
+            }
+
+        });</script>
+
+    <ul id="nav">
+        <li id=""><a href="/"><span>Home</span></a></li>
+        <li id="navclaim"><a href="/user/claimhandicap.aspx"><span>
+            Claim your Handicap</span></a></li>
+        <li id="navrunners"><a href="/runners/"><span>Runners</span></a></li>
+        <li id="navresults"><a href="/results/"><span>Results</span></a></li>
+        <li id="navrankings"><a href="/rankings/"><span>Rankings</span></a></li>
+        <li id="navrewards"><a href="/rewardrunning/leaderboard2019.aspx"><span>Reward Running</span></a></li>
+        <li id="navladder"><a href="/rankings/ladderlist.aspx"><span>National Ladder</span></a></li>
+    </ul>
+    <!-- Home page slider	code goes here only on home page -->
+    <div class="main-block2">
+        <div class="mb2-t">
+        </div>
+        <div class="mb2-m">
+            <div class="inside">
+
+            
+    <script language="javascript" type="text/javascript">
+
+        function fnOnMouseOver(element) {
+
+            // only change class if not already selected    
+            if (element.className == 'ResultsLookupDateLinkNormal') {
+                element.className = 'ResultsLookupDateLinkHover';
+            }
+
+            return (true);
+        }
+
+        function fnOnMouseOut(element) {
+
+            // only change class if not already selected    
+            if (element.className == 'ResultsLookupDateLinkHover') {
+                // revert to normal
+                element.className = 'ResultsLookupDateLinkNormal';
+            }
+
+            return (true);
+        }
+
+    </script>
+  <div id="content-top-holder">    
+    <h2>
+        Results</h2>
+    <p><strong>We include all races with UKA race licences.<br />For more details <a href="http://www.runbritain.com/race-directors-club">click here</a>.</strong></p>
+</div>
+  <div id="content-a-holder">    
+<!-- RunBritainRankings-Banner -->
+
+</div>
+<div class="contet-break"></div>
+
+
+    <table style="background-color: transparent;" width="100%">
+        <tr>
+            <td style="width: 40px">
+                <b>Event</b>
+            </td>
+            <td>
+                <select name="ctl00$cphBody$ddlEventCode" id="cphBody_ddlEventCode">
+			<option selected="selected" value="">Any</option>
+			<option value="5K">5K</option>
+			<option value="10K">10K</option>
+			<option value="HM">Half Marathon</option>
+			<option value="Mar">Marathon</option>
+			<option value="">--------</option>
+			<option value="parkrun">parkrun</option>
+			<option value="5M">5 Miles</option>
+			<option value="10M">10 Miles</option>
+			<option value="20M">20 Miles</option>
+			<option value="">--------</option>
+			<option value="1M">1 Mile</option>
+			<option value="3K">3K</option>
+			<option value="2M">2 Miles</option>
+			<option value="4K">4K</option>
+			<option value="2.5M">2.5 Miles</option>
+			<option value="3M">3 Miles</option>
+			<option value="3.5M">3.5 Miles</option>
+			<option value="6K">6K</option>
+			<option value="4M">4 Miles</option>
+			<option value="7K">7K</option>
+			<option value="8K">8K</option>
+			<option value="6M">6 Miles</option>
+			<option value="9K">9K</option>
+			<option value="11K">11K</option>
+			<option value="7M">7 Miles</option>
+			<option value="12K">12K</option>
+			<option value="13K">13K</option>
+			<option value="8M">8 Miles</option>
+			<option value="14K">14K</option>
+			<option value="9M">9 Miles</option>
+			<option value="15K">15K</option>
+			<option value="20K">20K</option>
+			<option value="15M">15 Miles</option>
+			<option value="25K">25K</option>
+			<option value="16M">16 Miles</option>
+			<option value="17M">17 Miles</option>
+			<option value="30K">30K</option>
+			<option value="21M">21 Miles</option>
+			<option value="22M">22 Miles</option>
+			<option value="50K">50K</option>
+			<option value="100K">100K</option>
+			<option value="12H">12 Hours</option>
+			<option value="24H">24 Hours</option>
+
+		</select>
+            </td>
+            <td style="width: 40px">
+                <b>Race</b>
+            </td>
+            <td>
+                <input name="ctl00$cphBody$txtMeeting" type="text" maxlength="60" id="cphBody_txtMeeting" title="Use * to do wildcard searches" />
+            </td>
+            <td style="width: 50px">
+                <b>Venue</b>
+            </td>
+            <td>
+                <input name="ctl00$cphBody$txtVenue" type="text" maxlength="30" id="cphBody_txtVenue" title="Use * to do wildcard searches" />
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 40px">
+                <b>Date</b>
+            </td>
+            <td>
+                <input name="ctl00$cphBody$txtDateFrom" type="text" value="21 Oct 2019" maxlength="20" id="cphBody_txtDateFrom" />
+                <b>to</b>
+                <input name="ctl00$cphBody$txtDateTo" type="text" value="4 Nov 2019" maxlength="20" id="cphBody_txtDateTo" title="To search over a date range enter the date to in this box" />
+            </td>
+            <input type="hidden" name="ctl00$cphBody$hidRecentDateFrom" id="cphBody_hidRecentDateFrom" value="22 Oct 2019" />
+            <input type="hidden" name="ctl00$cphBody$hidRecentDateTo" id="cphBody_hidRecentDateTo" value="5 Nov 2019" />
+            <input type="hidden" name="ctl00$cphBody$hidRecentYear" id="cphBody_hidRecentYear" value="2019" />
+            <td style="width: 40px">
+                <b>Year</b>
+            </td>
+            <td>
+                <select name="ctl00$cphBody$ddlYearOfPerf" id="cphBody_ddlYearOfPerf">
+			<option selected="selected" value="2019">2019</option>
+			<option value="2018">2018</option>
+			<option value="2017">2017</option>
+			<option value="2016">2016</option>
+			<option value="2015">2015</option>
+			<option value="2014">2014</option>
+			<option value="2013">2013</option>
+			<option value="2012">2012</option>
+			<option value="2011">2011</option>
+			<option value="2010">2010</option>
+			<option value="2009">2009</option>
+			<option value="2008">2008</option>
+			<option value="2007">2007</option>
+			<option value="2006">2006</option>
+			<option value="2005">2005</option>
+			<option value="2004">2004</option>
+			<option value="2003">2003</option>
+			<option value="2002">2002</option>
+			<option value="2001">2001</option>
+			<option value="2000">2000</option>
+			<option value="1999">1999</option>
+			<option value="1998">1998</option>
+			<option value="1997">1997</option>
+			<option value="1996">1996</option>
+			<option value="1995">1995</option>
+			<option value="1994">1994</option>
+			<option value="1993">1993</option>
+			<option value="1992">1992</option>
+			<option value="1991">1991</option>
+			<option value="1990">1990</option>
+			<option value="1989">1989</option>
+
+		</select>
+            </td>
+            <td style="width: 50px">
+                <b>Terrain</b>
+            </td>
+            <td>
+                <select name="ctl00$cphBody$ddlTerrainTypeCode" id="cphBody_ddlTerrainTypeCode">
+			<option value="RM">Road/Multi</option>
+			<option selected="selected" value="P">parkrun</option>
+			<option value="R">Road</option>
+			<option value="M">Multi</option>
+			<option value="TI">Track</option>
+			<option value="X">XC</option>
+			<option value="RMPTIX">All</option>
+
+		</select>
+                <input type="submit" name="ctl00$cphBody$btnLookup" value="Lookup" id="cphBody_btnLookup" />&nbsp;
+                <input type="submit" name="ctl00$cphBody$btnReset" value="Reset" id="cphBody_btnReset" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 40px">
+                <b><a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('22 Oct 2019', '5 Nov 2019', '2019');" onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Recent</a></b>
+            </td>
+            <td colspan="6">
+                <b><a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('', '', '2019');" onmouseover="fnOnMouseOver(this);"
+                    onmouseout="fnOnMouseOut(this);">2019</a></b> <a class="ResultsLookupDateLinkNormal"
+                        onclick="fnSetDates('1 Jan 2019', '31 Jan 2019', '2019');" onmouseover="fnOnMouseOver(this);"
+                        onmouseout="fnOnMouseOut(this);">Jan</a> <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Feb 2019', '28 Feb 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Feb</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Mar 2019', '31 Mar 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Mar</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Apr 2019', '30 Apr 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Apr</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 May 2019', '31 May 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">May</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Jun 2019', '30 Jun 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Jun</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Jul 2019', '31 Jul 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Jul</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Aug 2019', '31 Aug 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Aug</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Sep 2019', '30 Sep 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Sep</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Oct 2019', '31 Oct 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Oct</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Nov 2019', '30 Nov 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Nov</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Dec 2019', '31 Dec 2019', '2019');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Dec</a>&nbsp;
+                <b><a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('', '', '2018');" onmouseover="fnOnMouseOver(this);"
+                    onmouseout="fnOnMouseOut(this);">2018</a></b> <a class="ResultsLookupDateLinkNormal"
+                        onclick="fnSetDates('1 Jan 2018', '31 Jan 2018', '2018');" onmouseover="fnOnMouseOver(this);"
+                        onmouseout="fnOnMouseOut(this);">Jan</a> <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Feb 2018', '28 Feb 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Feb</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Mar 2018', '31 Mar 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Mar</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Apr 2018', '30 Apr 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Apr</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 May 2018', '31 May 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">May</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Jun 2018', '30 Jun 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Jun</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Jul 2018', '31 Jul 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Jul</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Aug 2018', '31 Aug 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Aug</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Sep 2018', '30 Sep 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Sep</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Oct 2018', '31 Oct 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Oct</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Nov 2018', '30 Nov 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Nov</a>
+                <a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('1 Dec 2018', '31 Dec 2018', '2018');"
+                    onmouseover="fnOnMouseOver(this);" onmouseout="fnOnMouseOut(this);">Dec</a>&nbsp;
+                <b><a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('', '', '2017');" onmouseover="fnOnMouseOver(this);"
+                    onmouseout="fnOnMouseOut(this);">2017</a></b>&nbsp;
+                <b><a class="ResultsLookupDateLinkNormal" onclick="fnSetDates('', '', '2016');" onmouseover="fnOnMouseOver(this);"
+                    onmouseout="fnOnMouseOut(this);">2016</a></b>&nbsp;
+                <b><a href="http://www.runbritain.com/races">Online Entry</a></b>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+            <td>
+                <span id="cphBody_lblErrorMessage"><font color="Red"></font></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span id="cphBody_lblRecentResultsHeader"></span>
+            </td>
+        </tr>
+    </table>
+    <table cellspacing="0" cellpadding="2" id="cphBody_dgMeetings" width="100%">
+			<tr bgcolor="Transparent">
+				<td><b>Date</b></td><td><b>Race (External Results Link)</b></td><td><b>Venue</b></td><td align="center"><b>Type</b></td><td align="center"><b>Results</b></td><td><b>&nbsp;</b></td>
+			</tr><tr bgcolor="White">
+				<td nowrap="nowrap"><font size="2">Sat 26 Oct 2019</font></td><td><font size="2">
+                    <a href="http://www.parkrun.org.uk/bushy/Results/WeeklyResults.aspx?runSeqNumber=812" target="_blank">Bushy Park parkrun # 812</a>
+                </font></td><td><font size="2">Bushy Park</font></td><td align="center"><font size="2">parkrun</font></td><td align="center"><font size="2"><a href="/results/results.aspx?meetingid=328117">Full</a></font></td><td><font size="2"><a href="/submit/submitmeeting.aspx?meetingid=328117" title="submit results"><img src="/images/pot/email.gif" border="0" /></a></font></td>
+			</tr>
+            <tr style="background-color:White;font-size:10pt;">
+				<td style="white-space:nowrap;">Tue 22 Oct 2019</td><td>
+                    <a href="https://www.thepowerof10.info/resultsfiles/2019/328654_7901_28102019105729.docx" target="_blank">South Wales Regional Schools' Boys Championships</a>
+                    
+                </td><td>Pontcanna</td><td align="center">XC</td><td align="center"><a href="/results/results.aspx?meetingid=328654">Full</a></td><td><a href="/submit/submitmeeting.aspx?meetingid=328654" title="submit results"><img src="/images/pot/email.gif" border="0" /></a></td>
+			</tr>
+            
+            <tr bgcolor="White">
+				<td nowrap="nowrap"><font size="2">Sat 26 Oct 2019</font></td><td><font size="2">
+                    <a href="http://www.parkrun.org.uk/kingston/Results/WeeklyResults.aspx?runSeqNumber=504" target="_blank">Kingston parkrun # 504</a>
+                </font></td><td><font size="2">Kingston</font></td><td align="center"><font size="2">parkrun</font></td><td align="center"><font size="2"><a href="/results/results.aspx?meetingid=328174">Full</a></font></td><td><font size="2"><a href="/submit/submitmeeting.aspx?meetingid=328174" title="submit results"><img src="/images/pot/email.gif" border="0" /></a></font></td>
+			</tr><tr bgcolor="#ECF2F7">
+				<td nowrap="nowrap"><font size="2">Sat 26 Oct 2019</font></td><td><font size="2">
+                    <a href="http://www.parkrun.org.uk/tootingcommon/Results/WeeklyResults.aspx?runSeqNumber=192" target="_blank">Tooting Common parkrun # 192</a>
+                </font></td><td><font size="2">Tooting Common</font></td><td align="center"><font size="2">parkrun</font></td><td align="center"><font size="2"><a href="/results/results.aspx?meetingid=328772">Full</a></font></td><td><font size="2"><a href="/submit/submitmeeting.aspx?meetingid=328772" title="submit results"><img src="/images/pot/email.gif" border="0" /></a></font></td>
+			</tr><tr bgcolor="White">
+				<td nowrap="nowrap"><font size="2">Sat 26 Oct 2019</font></td><td><font size="2">
+                    <a href="http://www.parkrun.org.uk/wimbledon/Results/WeeklyResults.aspx?runSeqNumber=677" target="_blank">Wimbledon Common parkrun # 677</a>
+                </font></td><td><font size="2">Wimbledon Common</font></td><td align="center"><font size="2">parkrun</font></td><td align="center"><font size="2"><a href="/results/results.aspx?meetingid=328118">Full</a></font></td><td><font size="2"><a href="/submit/submitmeeting.aspx?meetingid=328118" title="submit results"><img src="/images/pot/email.gif" border="0" /></a></font></td>
+			</tr>
+		</table>
+    <table>
+        <tr>
+            <td>
+                <a href="/submit/submitmeeting.aspx">Submit Results for another Meeting</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                
+            </td>
+        </tr>
+    </table>
+
+            
+<!-- end div for id="content" from banner-->
+				</div>
+			</div><!-- End mb2-m -->
+			
+		<div class="mb2-b" style="clear:both"></div>
+		
+</div><!-- End main-->
+
+<div id="footer">
+<div class="main-block3">
+
+<div class="mb3-t"></div>
+
+<div class="mb3-m">
+	<div class="inside">
+		<div class="sponsors-block">
+
+			<div class="title">Official sponsors:</div>
+																				
+			<div class="box"></div>
+			<div class="box"></div>
+
+		</div><!-- End sponsors-block-->
+		
+			<div class="bottom">
+				<address><strong class="title">UK Athletics Ltd.</strong> <span>Alexander Stadium Walsall Road Perry Barr Birmingham B42 2BE</span></address>
+				<dl class="contacts">
+					<dt>Tel:</dt>
+					<dd>0121 713 8400</dd>
+					<dt>Fax:</dt>
+					<dd>0121 713 8452</dd>
+				</dl>
+				<ul class="bottom-nav">
+					<li style="padding: 0 19px 0 0;">Powered by <a href="http://www.athleticsdata.com/"><img alt="Athletics Data" title="Athletics Data" src="/images/rb/athleticsdata.png" style="vertical-align:bottom"></a></li>
+					<li><a href="mailto:admin@runbritainrankings.com">Contact us</a></li>
+				</ul>
+			</div><!-- End bottom-->
+		</div><!-- End inside-->
+	</div><!-- End mb3-m-->
+
+	<div class="mb3-b"></div>
+	
+</div><!-- End main-block3-->
+</div><!-- End footer-->
+
+            <!--</td>
+	</tr>
+</table>
+-->
+        </div>
+    </div>
+    </form>
+
+    <script language="javascript" type="text/javascript" src="/js/jquery.qtip-1.0.0-rc3.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.register-help a[title]').qtip({ position: { corner: { target: 'topRight', tooltip: 'bottomLeft'} }, style: { width: 200, background: '#e1adba', color: '#172E39', name: 'red'} })
+            $('.inline-help a[title]').qtip({ position: { corner: { target: 'topRight', tooltip: 'bottomLeft'} }, style: { width: 200, background: '#e1adba', color: '#172E39', name: 'red'} })
+            $('#social-media-menu a[title]').qtip({ position: { corner: { target: 'topRight', tooltip: 'bottomLeft'} }, style: { name: 'blue'} })
+            $('#achievements a img[title]').qtip({ position: { corner: { target: 'rightBottom', tooltip: 'topLeft'} }, style: { name: 'blue'} })
+        });
+    </script>
+
+    <script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-8207901-7");pageTracker._trackPageview();} catch(err) {}</script>
+</body>
+</html>
