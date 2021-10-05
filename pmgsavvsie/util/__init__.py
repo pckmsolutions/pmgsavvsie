@@ -36,8 +36,8 @@ def cvt_to_result_row(columns):
     return cvt
 
 class BsForUrlFunc(object):
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, cache_directory):
+        self.cache_directory = cache_directory
 
     def __call__(self, url):
         try:
@@ -61,8 +61,8 @@ class BsForUrlFunc(object):
         return cleaned_filename[:char_limit]    
     
     def requests_get_text(self, url):
-        if self.config.URL_CACHE_DIRECTORY:
-            cache_filename = os.path.join(self.config.URL_CACHE_DIRECTORY, self.clean_filename(url))
+        if self.cache_directory:
+            cache_filename = os.path.join(self.cache_directory, self.clean_filename(url))
             try:
                 with open(cache_filename, 'r') as f:
                     logger.info(f'Using cached data for {url} from {cache_filename}')
@@ -72,7 +72,7 @@ class BsForUrlFunc(object):
     
         text = requests.get(url).text
 
-        if self.config.URL_CACHE_DIRECTORY:
+        if self.cache_directory:
             with open(cache_filename, 'w+') as f:
                 logger.info(f'Caching data for {url} to {cache_filename}')
                 f.write(text)
@@ -80,26 +80,26 @@ class BsForUrlFunc(object):
         return text
 
 
-def get_range(config, last_scrape):
-    if config.RESCRAPE_WINDOW != None:
+def get_range(scrape_config, last_scrape):
+    if scrape_config.rescrape_window != None:
         today = datetime.utcnow().date()
         if not last_scrape:
-            assert config.BEGINNING_OF_TIME != None, 'No scrape yet - must have beginning of time'
-            logger.info(f'First scrape - starting from {config.BEGINNING_OF_TIME}')
-            date_from = datetime.strptime(config.BEGINNING_OF_TIME, '%Y-%m-%d').date()
+            assert scrape_config.beginning_of_time != None, 'No scrape yet - must have beginning of time'
+            logger.info(f'First scrape - starting from {scrape_config.beginning_of_time}')
+            date_from = datetime.strptime(scrape_config.beginning_of_time, '%Y-%m-%d').date()
         else:
-            date_from = min(last_scrape + timedelta(days=1), today - timedelta(days=config.RESCRAPE_WINDOW))
+            date_from = min(last_scrape + timedelta(days=1), today - timedelta(days=scrape_config.rescrape_window))
             logger.info(f'Last scrape  {last_scrape} - starting from {date_from}')
     
-        if config.MAX_RANGE_LENGTH != None:
-            assert config.MAX_RANGE_LENGTH > 0, 'range length must be at least 1'
-            date_to = min(date_from + timedelta(days=config.MAX_RANGE_LENGTH - 1 ), today)
+        if scrape_config.max_range_length != None:
+            assert scrape_config.max_range_length > 0, 'range length must be at least 1'
+            date_to = min(date_from + timedelta(days=scrape_config.max_range_length - 1 ), today)
         else:
             date_to = today
     
-    elif config.RANGE_START and config.RANGE_END:
-        date_from = datetime.strptime(config.RANGE_START, '%Y-%m-%d').date()
-        date_to = datetime.strptime(config.RANGE_END, '%Y-%m-%d').date()
+    elif scrape_config.range_start and scrape_config.range_end:
+        date_from = datetime.strptime(scrape_config.range_start, '%Y-%m-%d').date()
+        date_to = datetime.strptime(scrape_config.range_end, '%Y-%m-%d').date()
     else:
         logger.error('Can''t scrape. need either re-scrape window or range')
         return
@@ -107,8 +107,8 @@ def get_range(config, last_scrape):
     logger.info(f'Date range from {date_from} to {date_to} (in reverse order)')
     return date_from, date_to
 
-def get_dates(config, last_scrape):
-    date_from, date_scrape = get_range(config, last_scrape)
+def get_dates(scrape_config, last_scrape):
+    date_from, date_scrape = get_range(scrape_config, last_scrape)
 
     while date_scrape >= date_from:
         yield date_scrape

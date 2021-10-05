@@ -43,9 +43,8 @@ def dist_from_tag(tag):
 class RbScrape(AbstractScraper):
     BASE_URL = 'https://www.runbritainrankings.com'
 
-    def __init__(self, config):
-        self.config = config
-        self.bs_for_url = BsForUrlFunc(config)
+    def __init__(self, cache_directory):
+        self.bs_for_url = BsForUrlFunc(cache_directory)
 
     def scrape(self, date_from, date_to):
         return flatten_sets(self.get_event_sets(date_from, date_to))

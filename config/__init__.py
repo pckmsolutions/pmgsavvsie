@@ -10,7 +10,3 @@ class DevConfig(BaseConfig):
     URL_CACHE_DIRECTORY = 'url_cache'
     MAX_RANGE_LENGTH = 1
     BEGINNING_OF_TIME = '2020-01-01'
-
-
-class UnitTestConfig(BaseConfig):
-    pass

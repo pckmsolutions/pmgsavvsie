@@ -1,26 +1,29 @@
 from datetime import datetime
 import sys
 from contextlib import contextmanager
-import mysql.connector as dbconnector
+from collections import namedtuple
+
 from .core import KnownColumns
 from .util import cvt_to_result_row, parse_date
-from mysql.connector.errors import Error as MySqlError
 import logging
 from .util import get_dates
 
 logger = logging.getLogger(__name__)
 
-def scrape_mod(db_model, module, scraper, config):
+ScrapeConfig = namedtuple('ScrapeConfig',
+        'rescrape_window beginning_of_time max_range_length range_start range_end')
+
+def scrape_mod(db_model, module, scraper, scrape_config):
     savvsie_db = db_model()
-    dates = get_dates(config, savvsie_db.latest_scrape_date(module))
+    dates = get_dates(scrape_config, savvsie_db.latest_scrape_date(module))
 
     rets = []
     for date_scrape in dates:
-        rets.append(scrape_for_date(savvsie_db, module, scraper, date_scrape, config))
+        rets.append(scrape_for_date(savvsie_db, module, scraper, date_scrape))
 
     return rets
 
-def scrape_for_date(savvsie_db, module, scraper, date_scrape, config):
+def scrape_for_date(savvsie_db, module, scraper, date_scrape):
     class DbLogHandler(logging.StreamHandler):
         def __init__(self, log_id, event_id, savvsie_db):
             super(DbLogHandler, self).__init__()

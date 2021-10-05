@@ -3,7 +3,6 @@ from pmgsavvsie.modules.rb import RbScrape, flatten_sets
 import os
 import datetime
 from requests.exceptions import RequestException
-from config import UnitTestConfig
 
 URLS = {
         'https://www.runbritainrankings.com/results/resultslookup.aspx?datefrom=21-Oct-2019&dateto=4-Nov-2019&terraintypecodes=RMPTIX': 'races.html',
@@ -32,7 +31,7 @@ class RbScrapeTests(TestCase):
         requests_get_patcher = mock.patch('requests.get')
         self.mock_requests_get = requests_get_patcher.start()
         self.mock_requests_get.side_effect = mock_requests_get
-        self.scraper = RbScrape(UnitTestConfig())
+        self.scraper = RbScrape(None)
 
     def tearDown(self):
         mock.patch.stopall()
@@ -70,7 +69,7 @@ class RbScrapeTests(TestCase):
         self.assertEqual(flattened[1].distance, '5.1KXC')
 
     def test_gets_event_result_sets(self):
-        rbscrape = RbScrape(UnitTestConfig())
+        rbscrape = RbScrape(None)
         events = self.scraper.get_event_sets_as_list(datetime.date(2019, 10, 21), datetime.date(2019, 11, 4))
 
         event0_result_set = events[0].get_result_set()
@@ -134,7 +133,7 @@ class RbScrapeTests(TestCase):
         self.assertEqual(flattened[2].distance, '4.5KXC')
 
     def test_gets_paged_event_results(self):
-        rbscrape = RbScrape(UnitTestConfig())
+        rbscrape = RbScrape(None)
         events = self.scraper.get_event_sets_as_list(datetime.date(2019, 10, 22), datetime.date(2019, 11, 3))
 
         event0_result_set = events[0].get_result_set()
@@ -161,7 +160,7 @@ class RbScrapeTests(TestCase):
     def xtest_gets_paged_event_results(self):
         # fix by testing bad url response
         #with self.assertRaises(RequestException):
-        rbscrape = RbScrape(UnitTestConfig())
+        rbscrape = RbScrape(None)
         events = self.scraper.get_event_sets_as_list(datetime.date(2019, 10, 23), datetime.date(2019, 11, 2))
         event0 = events[0]
 
