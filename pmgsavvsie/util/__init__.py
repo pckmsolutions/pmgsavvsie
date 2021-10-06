@@ -2,8 +2,8 @@ from itertools import count
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 import string
-import requests
-from requests.exceptions import RequestException
+import aiohttp
+from aiohttp import ClientError
 from bs4 import BeautifulSoup
 import unicodedata
 import os
@@ -36,13 +36,14 @@ def cvt_to_result_row(columns):
     return cvt
 
 class BsForUrlFunc(object):
-    def __init__(self, cache_directory):
+    def __init__(self, client_session, cache_directory):
+        self.client_session = client_session
         self.cache_directory = cache_directory
 
-    def __call__(self, url):
+    async def __call__(self, url):
         try:
-            return BeautifulSoup(self.requests_get_text(url), features='html.parser')
-        except RequestException as err:
+            return BeautifulSoup(await self.requests_get_text(url), features='html.parser')
+        except ClientError as err:
             logger.error(f'Bad url {url}')
             raise err
 
@@ -70,7 +71,8 @@ class BsForUrlFunc(object):
             except IOError:
                 pass
     
-        text = requests.get(url).text
+        with client_session.get(url) as resp:
+            text = resp.text()
 
         if self.cache_directory:
             with open(cache_filename, 'w+') as f:

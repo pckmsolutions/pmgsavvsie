@@ -13,17 +13,17 @@ logger = logging.getLogger(__name__)
 ScrapeConfig = namedtuple('ScrapeConfig',
         'rescrape_window beginning_of_time max_range_length range_start range_end')
 
-def scrape_mod(db_model, module, scraper, scrape_config):
+async def scrape_mod(db_model, module, scraper, scrape_config):
     savvsie_db = db_model()
     dates = get_dates(scrape_config, savvsie_db.latest_scrape_date(module))
 
     rets = []
     for date_scrape in dates:
-        rets.append(scrape_for_date(savvsie_db, module, scraper, date_scrape))
+        rets.append(await scrape_for_date(savvsie_db, module, scraper, date_scrape))
 
     return rets
 
-def scrape_for_date(savvsie_db, module, scraper, date_scrape):
+async def scrape_for_date(savvsie_db, module, scraper, date_scrape):
     class DbLogHandler(logging.StreamHandler):
         def __init__(self, log_id, event_id, savvsie_db):
             super(DbLogHandler, self).__init__()
@@ -74,7 +74,7 @@ Finished: {self.finished}
     
     ctx.log_id = savvsie_db.start_mod(module, date_scrape)
     
-    rbevents = scraper.scrape(date_from=date_scrape, date_to=date_scrape)
+    rbevents = await scraper.scrape(date_from=date_scrape, date_to=date_scrape)
     logger.info(f'Module {module} finding events on {date_scrape}')
     
     for event in rbevents:

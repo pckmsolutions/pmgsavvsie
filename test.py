@@ -1,3 +1,4 @@
+import asyncio
 from configparser import ConfigParser
 from pmgsavvsie.modules.rb import RbScrape
 from pmgsavvsie.scrape import scrape_mod, ScrapeConfig
@@ -10,6 +11,9 @@ config = ConfigParser()
 config.read('config/testconfig.cfg')
 
 if __name__ == '__main__':
+    asyncio.run(main())
+
+async def main():
     try:
         def_conf = config['default']
         rbscrape = RbScrape(def_conf['url_cache_directory'])
@@ -21,7 +25,7 @@ if __name__ == '__main__':
                 def_conf.get('range_start'),
                 def_conf.get('range_end'),
                 )
-        ctxs = scrape_mod(MyDb, module, rbscrape, scrape_config)
+        ctxs = await scrape_mod(MyDb, module, rbscrape, scrape_config)
     except Exception as e:
         logger.exception(f'Savvsie scrape run failed. {e}')
 

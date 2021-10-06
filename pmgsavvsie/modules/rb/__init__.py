@@ -1,10 +1,9 @@
 from bs4 import BeautifulSoup
 import datetime
-import requests
 import urllib.parse as urlp
 import itertools
 import re
-from requests.exceptions import RequestException
+from aiohttp import ClientError
 from ...core import AbstractScraper, AbstractEvent
 from ...util import BsForUrlFunc
 
@@ -43,13 +42,13 @@ def dist_from_tag(tag):
 class RbScrape(AbstractScraper):
     BASE_URL = 'https://www.runbritainrankings.com'
 
-    def __init__(self, cache_directory):
-        self.bs_for_url = BsForUrlFunc(cache_directory)
+    def __init__(self, client_session, cache_directory):
+        self.bs_for_url = BsForUrlFunc(client_session, cache_directory)
 
-    def scrape(self, date_from, date_to):
-        return flatten_sets(self.get_event_sets(date_from, date_to))
+    async def scrape(self, date_from, date_to):
+        return flatten_sets(await self.get_event_sets(date_from, date_to))
 
-    def get_event_sets(self, date_from, date_to):
+    async def get_event_sets(self, date_from, date_to):
         df = lambda d: d.strftime('%-d-%b-%Y')
         url = urlp.urljoin(RbScrape.BASE_URL,
                 ('/results/resultslookup.aspx'
@@ -57,18 +56,17 @@ class RbScrape(AbstractScraper):
                     f'&dateto={df(date_to)}'
                     '&terraintypecodes=RMPTIX'))
         try:
-            bs = self.bs_for_url(url)
-        except RequestException:
-            return []
+            bs = await self.bs_for_url(url)
+        except ClientError:
+            return
 
         table = _table_with_id(bs, 'cphBody_dgMeetings')
 
         if not table:
-            return []
+            return
 
         for t in table.find_all('tr')[1:]:
-            yield RbScrapeEvent(t, self.bs_for_url)
-        #return list(map(lambda t : RbScrapeEvent(t), table.find_all('tr')[1:]))
+            yield RbScrapeEvent(t, await self.bs_for_url)
 
     def get_event_sets_as_list(self, date_from, date_to):
         return list(self.get_event_sets(date_from, date_to))
@@ -108,7 +106,7 @@ class RbScrapeEvent(object):
         self.cached_result_set = None
 
 
-    def get_result_set(self):
+    async def get_result_set(self):
         if self.cached_result_set:
             return self.cached_result_set
 
@@ -117,8 +115,8 @@ class RbScrapeEvent(object):
             return []
 
         try:
-            bs = self.bs_for_url(self.result_url)
-        except RequestException:
+            bs = await self.bs_for_url(self.result_url)
+        except ClientError:
             logger.info(f'Crap URL {self.result_url} - Returning empty list')
             return []
         
@@ -172,10 +170,18 @@ class RbScrapeEvent(object):
 
         # flattening
         try:
-            more_pages = [p for res_list in \
-                    map(lambda l: get_from_page(self.bs_for_url(urlp.urljoin(RbScrape.BASE_URL, l))), page_links) \
-                    for p in res_list]
-        except RequestException:
+            #more_pages = [p for res_list in \
+            #        map(lambda l: get_from_page(await self.bs_for_url(urlp.urljoin(RbScrape.BASE_URL, l))), page_links) \
+            #        for p in res_list]
+
+            more_pages = []
+
+            for page_link in page_links:
+                page = get_from_page(await self.bs_for_url(urlp.urljoin(RbScrape.BASE_URL, page_link)))
+                for page in res_list:
+                    more_pages.append(page)
+
+        except ClientError:
             logger.error('Page url didn''t work')
             return page1_list
 
