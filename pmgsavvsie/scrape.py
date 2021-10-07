@@ -74,10 +74,10 @@ Finished: {self.finished}
     
     ctx.log_id = savvsie_db.start_mod(module, date_scrape)
     
-    rbevents = await scraper.scrape(date_from=date_scrape, date_to=date_scrape)
     logger.info(f'Module {module} finding events on {date_scrape}')
     
-    for event in rbevents:
+    async for event in scraper.scrape(
+            date_from=date_scrape, date_to=date_scrape):
         ctx.count += 1
         logger.info(f'Processing event: {event.name}')
 

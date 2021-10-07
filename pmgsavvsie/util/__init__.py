@@ -61,7 +61,7 @@ class BsForUrlFunc(object):
             print("Warning, filename truncated because it was over {}. Filenames may no longer be unique".format(char_limit))
         return cleaned_filename[:char_limit]    
     
-    def requests_get_text(self, url):
+    async def requests_get_text(self, url):
         if self.cache_directory:
             cache_filename = os.path.join(self.cache_directory, self.clean_filename(url))
             try:
@@ -71,8 +71,7 @@ class BsForUrlFunc(object):
             except IOError:
                 pass
     
-        with client_session.get(url) as resp:
-            text = resp.text()
+        text = await client_session_get_text(self.client_session, url)
 
         if self.cache_directory:
             with open(cache_filename, 'w+') as f:
@@ -81,6 +80,9 @@ class BsForUrlFunc(object):
     
         return text
 
+async def client_session_get_text(client_session, url):
+    async with client_session.get(url) as resp:
+        return await resp.text()
 
 def get_range(scrape_config, last_scrape):
     if scrape_config.rescrape_window != None:

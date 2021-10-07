@@ -22,9 +22,9 @@ def _table_with_id(root, tab_id):
 class RbEvent(AbstractEvent):
     pass
 
-def flatten_sets(event_sets):
-    for event_set in event_sets:
-        for event in event_set.get_result_set():
+async def flatten_sets(event_sets):
+    async for event_set in event_sets:
+        for event in await event_set.get_result_set():
             yield RbEvent(
                     date=event_set.date,
                     name=f'{event_set.name} - {"/".join(event.tags)}',
@@ -46,7 +46,8 @@ class RbScrape(AbstractScraper):
         self.bs_for_url = BsForUrlFunc(client_session, cache_directory)
 
     async def scrape(self, date_from, date_to):
-        return flatten_sets(await self.get_event_sets(date_from, date_to))
+        async for event in flatten_sets(self.get_event_sets(date_from, date_to)):
+            yield event
 
     async def get_event_sets(self, date_from, date_to):
         df = lambda d: d.strftime('%-d-%b-%Y')
@@ -66,10 +67,8 @@ class RbScrape(AbstractScraper):
             return
 
         for t in table.find_all('tr')[1:]:
-            yield RbScrapeEvent(t, await self.bs_for_url)
+            yield RbScrapeEvent(t, self.bs_for_url)
 
-    def get_event_sets_as_list(self, date_from, date_to):
-        return list(self.get_event_sets(date_from, date_to))
 
 class RbScrapeEvent(object):
     COL_PAT = re.compile('[A-Za-z0-9]+')
@@ -170,16 +169,12 @@ class RbScrapeEvent(object):
 
         # flattening
         try:
-            #more_pages = [p for res_list in \
-            #        map(lambda l: get_from_page(await self.bs_for_url(urlp.urljoin(RbScrape.BASE_URL, l))), page_links) \
-            #        for p in res_list]
-
             more_pages = []
 
             for page_link in page_links:
                 page = get_from_page(await self.bs_for_url(urlp.urljoin(RbScrape.BASE_URL, page_link)))
-                for page in res_list:
-                    more_pages.append(page)
+                for result in page:
+                    more_pages.append(result)
 
         except ClientError:
             logger.error('Page url didn''t work')
