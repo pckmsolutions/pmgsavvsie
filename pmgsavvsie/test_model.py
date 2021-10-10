@@ -11,23 +11,23 @@ class MyDb(SavvsieDb):
     def __init__(self):
         self.events = []
 
-    def latest_scrape_date(self, mod):
+    async def latest_scrape_date(self, mod):
         return None
 
     def error(self, log_id, event_id, message):
         pass
 
-    def start_mod(self, module, date_scrape):
+    async def start_mod(self, module, date_scrape):
         return 0
 
-    def fin_mod(self, count, log_id):
+    async def fin_mod(self, count, log_id):
         pass
 
-    def start_event(self, event, date_scrape):
+    async def start_event(self, event, date_scrape):
         self.events.append(Event(event, date_scrape, []))
         return len(self.events)
 
-    def fin_event(self, event_id):
+    async def fin_event(self, event_id):
         event = self.events[event_id - 1]
         results = event.results
         if not results:
@@ -40,7 +40,7 @@ class MyDb(SavvsieDb):
             logger.info('%s', result)
         
 
-    def result(self, event_id, result_dict):
+    async def result(self, event_id, result_dict):
         if result_dict['club'] == 'Wimbledon Windmilers':
             self.events[event_id - 1].results.append(result_dict)
 

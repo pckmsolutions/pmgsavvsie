@@ -1,6 +1,4 @@
-from pmgsiteinfra import configure_logging
 from os import path
-configure_logging(path.join(path.dirname(__file__), '../config/logconf.yaml'))
 from logging import getLogger
 
 from .scrape import scrape_mod

@@ -8,7 +8,7 @@ class SavvsieDb(ABC):
         super(SavvsieDb, self).__init__(**kwargs)
 
     @abstractmethod
-    def latest_scrape_date(self, mod):
+    async def latest_scrape_date(self, mod):
         return None
 
     @abstractmethod
@@ -17,26 +17,26 @@ class SavvsieDb(ABC):
         pass
 
     @abstractmethod
-    def start_mod(self, module, date_scrape):
+    async def start_mod(self, module, date_scrape):
         logger.info('start_mod %s, %s', module, date_scrape)
         return 0
 
     @abstractmethod
-    def fin_mod(self, count, log_id):
+    async def fin_mod(self, count, log_id):
         logger.info('fin_mod %s, %s', count, log_id)
         pass
 
     @abstractmethod
-    def start_event(self, event, date_scrape):
+    async def start_event(self, event, date_scrape):
         logger.info('insert_event %s, %s', event, date_scrape)
         return 1
 
     @abstractmethod
-    def fin_event(self, event_id):
+    async def fin_event(self, event_id):
         pass
 
     @abstractmethod
-    def result(self, result_dict):
+    async def result(self, result_dict):
         logger.info('insert_result %s', result_dict)
         pass
 

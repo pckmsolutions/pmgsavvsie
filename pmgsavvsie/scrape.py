@@ -15,7 +15,8 @@ ScrapeConfig = namedtuple('ScrapeConfig',
 
 async def scrape_mod(db_model, module, scraper, scrape_config):
     savvsie_db = db_model()
-    dates = get_dates(scrape_config, savvsie_db.latest_scrape_date(module))
+    dates = get_dates(scrape_config,
+            await savvsie_db.latest_scrape_date(module))
 
     rets = []
     for date_scrape in dates:
@@ -72,7 +73,7 @@ Finished: {self.finished}
 
     ctx = Ctx()
     
-    ctx.log_id = savvsie_db.start_mod(module, date_scrape)
+    ctx.log_id = await savvsie_db.start_mod(module, date_scrape)
     
     logger.info(f'Module {module} finding events on {date_scrape}')
     
@@ -81,7 +82,7 @@ Finished: {self.finished}
         ctx.count += 1
         logger.info(f'Processing event: {event.name}')
 
-        event_id = savvsie_db.start_event(event, date_scrape)
+        event_id = await savvsie_db.start_event(event, date_scrape)
         if not event_id:
             continue
 
@@ -108,11 +109,11 @@ Finished: {self.finished}
                 result_dict.setdefault(KnownColumns.AGE_GROUP.name, None)
                 result_dict.setdefault(KnownColumns.GENDER.name, None)
 
-                savvsie_db.result(event_id, result_dict)
+                await savvsie_db.result(event_id, result_dict)
 
-        savvsie_db.fin_event(event_id)
+        await savvsie_db.fin_event(event_id)
     
-    savvsie_db.fin_mod(ctx.count, ctx.log_id)
+    await savvsie_db.fin_mod(ctx.count, ctx.log_id)
 
     ctx.finished = datetime.utcnow()
     return ctx

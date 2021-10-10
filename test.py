@@ -1,3 +1,4 @@
+import logging
 import asyncio
 import aiohttp
 from configparser import ConfigParser
@@ -5,8 +6,9 @@ from pmgsavvsie.modules.rb import RbScrape
 from pmgsavvsie.scrape import scrape_mod, ScrapeConfig
 from pmgsavvsie.test_model import MyDb
 
-from logging import getLogger
-logger = getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
+
+logger = logging.getLogger(__name__)
 
 config = ConfigParser()
 config.read('config/testconfig.cfg')
